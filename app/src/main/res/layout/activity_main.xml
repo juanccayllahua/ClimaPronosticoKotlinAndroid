@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="com.creandojc.monitoreoclima.common.utils.CommonUtils"/>
+        <variable
+            name="viewModel"
+            type="com.creandojc.monitoreoclima.mainModule.viewModel.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".mainModule.view.MainActivity">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.result.timezone.replace('_',' ')}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            android:textColor="?attr/colorSecondaryVariant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Zona" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvCurrentitle"
+            tools:text="Current WEATHER"
+            android:text="Current Weather"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="wrap_content"
+            app:isGone="@{!viewModel.isLoaded()}"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvTitulo"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <include android:id="@+id/current"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            layout="@layout/item_weather"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:current = "@{viewModel.result.current}"
+            isGone="@{!viewModel.isLoaded()}"
+            app:layout_constraintTop_toBottomOf="@+id/tvCurrentitle"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvForecasttitle"
+            tools:text="Pronostico"
+            android:text="Forecast Weather"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="wrap_content"
+            app:isGone="@{!viewModel.isLoaded()}"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/current"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            tools:listitem="@layout/item_weather"
+            app:layout_constraintTop_toBottomOf="@id/tvForecasttitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            />
+        
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:isGone="@{viewModel.isLoaded()}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
