@@ -1,4 +1,4 @@
-# ClimaPronosticoKotlinAndroid
+# PronosticoDeClima_KotlinAndroid
 
 Desarrollo de la aplicacion movil usando el patron MVVM.
 
